@@ -1,0 +1,86 @@
+﻿@model SSLS.WebUI.Models.FineViewModel
+
+@{
+    ViewBag.Title = "MyFine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    label{
+        font-weight:bolder;
+    }
+</style>
+
+<h2 class="title">读者<b>@ViewBag.readerName</b>的罚款记录如下</h2>
+
+<div>
+    <label>未缴纳</label><input type="radio" value="wjn" checked="checked" name="fine" class="radio-inline" />
+    <label>已缴纳</label><input type="radio" value="yjn" name="fine" class="radio-inline" />
+</div>
+<table class="table" id="wjn">
+    <thead>
+        <tr>
+            <th>书名</th>
+            <th>罚款金额</th>
+            <th>借阅时间</th>
+            <th>超期天数</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Tofine)
+        {
+            <tr>
+                <td>@line.Book.Name</td>
+                <td>@line.Fine.FinePrice</td>
+                <td>@line.BorrowTime</td>
+                <td>@line.Overdays</td>
+                <td>
+                    @Html.ActionLink("缴款", "SureFine", null,
+                new { Id = line.Fine.Id },
+                new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table> 
+<table class="table" id="yjn" hidden="hidden">
+    <thead>
+        <tr>
+            <th>书名</th>
+            <th>罚款金额</th>
+            <th>借阅时间</th>
+            <th>超期天数</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Fined)
+        {
+            <tr>
+                <td>@line.Book.Name</td>
+                <td>@line.Fine.FinePrice</td>
+                <td>@line.BorrowTime</td>
+                <td>@line.Overdays</td>           
+            </tr>
+        }
+
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $("input[name='fine']").click(function () {
+
+            if ($("input[name='fine']:checked").val() == 'wjn') {
+                $("#yjn").attr("hidden", "hidden");
+                $("#wjn").removeAttr("hidden");
+
+            }
+            else {
+                $("#wjn").attr("hidden", "hidden");
+                $("#yjn").removeAttr("hidden");
+            }
+        })
+    })
+</script>
+

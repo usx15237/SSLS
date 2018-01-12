@@ -1,0 +1,32 @@
+﻿@model SSLS.Domain.Concrete.Borrow
+
+@{
+    ViewBag.Title = "SureFine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table id="ShelfTable" class="table">
+    <thead>
+        <tr>
+            <th>书名</th>
+            <th>罚款金额</th>
+            <th>借阅时间</th>
+            <th>应还时间</th>  
+            <th>超期天数</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Book.Name</td>
+            <td>@Model.Fine.FinePrice</td>
+            <td>@Model.BorrowTime</td>
+            <td>@Model.DateShouldBeReturn</td>
+            <td>@Model.Overdays</td>
+        </tr>
+    </tbody>
+</table>
+<p class="title">您确认要为书籍<b>@Model.Book.Name</b>缴款吗<p>
+    @Html.ActionLink("确认缴款", "PayFine", null,
+                new { Id = Model.Fine.Id },
+                new { @class = "btn btn-primary" })

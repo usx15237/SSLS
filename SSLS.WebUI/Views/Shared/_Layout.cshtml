@@ -1,0 +1,76 @@
+﻿<!--前台模板页-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 彼岸图书馆欢迎您</title>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+
+
+    <!--导航-->
+    <link href="~/书架/templatemo_style.css" rel="stylesheet" />
+    <link href="~/书架/css/coda-slider.css" rel="stylesheet" />
+
+    <!--图书列表-->
+    <link href="~/BL/css/reset.css" rel="stylesheet" />
+    <link href="~/BL/css/style.css" rel="stylesheet" />
+    <script src="~/BL/js/jquery-2.1.4.js"></script>
+    <script src="~/BL/js/main.js"></script>
+    <script src="~/BL/js/modernizr.js"></script>
+
+
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/toastr.js/2.1.0/js/toastr.js"></script>
+    <style>
+     #bookimg{
+         width:240px;
+         height:240px;
+     }
+     .nav{
+         height:795.91px; 
+     }
+     #manage{
+         text-align:center;
+     }
+     .title{
+         font-size:30px;
+         font-weight:bolder;
+         text-align:center;
+         margin-bottom:10px;
+     }
+    </style> 
+</head> 
+<body> 
+        <!--分部视图,作为本页面的固定部分存在。
+            当我们的视图中出现@foreach(var item in list)时，就要考虑用到summary了,
+            因为如果我们想表示一些不属于item字段的值(比如时间差),就无法用ViewBag来表示了，只能用分部视图。
+            为方便辨认,
+            本项目中所有分布视图及创建分布视图之方法均带有Summary字样;
+            他们包括
+            fontNavSummary(前台导航列表)
+            categorySummary(图书分类列表)
+            BookSummary(图书列表) 
+            adminNavSummary(后台导航列表)
+            -->
+
+
+       <!--Action与ActionLink的区别在于，
+           前者返回一个动作方法的结果，
+           后者返回一个指向动作方法的路由。
+           一般来说，当我们想在一个页面中放置一个固定分部视图时，考虑用Action,
+           当我们想在一个页面中放置一个链接时，考虑用ActionLink-->
+        @Html.Action("fontNavSummary", "Nav")
+    <div class="row panel">
+        <div class="col-xs-8">
+            @RenderBody()
+        </div>
+    </div>
+    <footer>
+        <h2 style="text-align:center;font-size:25px;padding-top:50px;line-height:25px">15145237 朱汉卿 计算机151</h2>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿@model SSLS.Domain.Concrete.RegisterDetail
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title">用户注册</h2> 
+@using (Html.BeginForm())
+{
+    /*
+     * ASP.NET MVC利用RegisterDetail类中的验证注解属性来验证用户数据，框架利用ValidationSummary将错误信息反馈给用户
+     */
+    @Html.ValidationSummary()
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+      
+            <div class="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            </div>
+    }
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="确认注册" />
+    </div>
+}
+
+ 

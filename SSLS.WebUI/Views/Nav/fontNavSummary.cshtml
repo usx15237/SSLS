@@ -1,0 +1,72 @@
+﻿@using SSLS.Domain.Concrete
+@model SSLS.WebUI.Models.CurrentReaderModel
+
+
+<link rel="stylesheet" type="text/css" href="../../导航栏/css/nav.css">
+<link rel="stylesheet" type="text/css" href="../../导航栏/font/iconfont.css">
+
+<script type="text/javascript" src="../../导航栏/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../导航栏/js/nav.js"></script>
+<div class="nav col-xs-4">
+    <div class="nav-top">
+        <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="../../导航栏/images/mini.png"></div>
+    </div>
+
+    <ul>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>个人管理</span><i class="my-icon nav-more"></i></a>
+            <ul id="manage">
+                <li>
+                    罚款项数：@Model.Fines.Count()
+                </li>
+                <li>
+                    @Html.ActionLink("当前书架", "Index", "Shelf" )
+                </li>
+                <li>
+                    @Html.ActionLink("当前借阅", "Borrowing", "Shelf")
+                </li>
+                <li>
+                    @Html.ActionLink("当前罚款", "MyFine", "Shelf")
+                </li>
+                <li>
+                    @Html.ActionLink("借阅历史", "BorrowHistory", "Shelf")
+                </li>
+                <li>
+                    @Html.ActionLink("读者信息", "Readermsg", "Reader")
+                </li>
+                <li>
+                    书架存量： @Model.Shelf.lines.Count()
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>图书分类</span><i class="my-icon nav-more"></i></a>
+            <ul id="manage">
+                @Html.Action("categorySummary", "Nav")
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>登录注册</span><i class="my-icon nav-more"></i></a>
+            <ul id="manage">
+                <li>
+                    @if (Model.Reader.Id == 0)
+                    {
+                        @Html.ActionLink("用户登录", "Login", "Reader")
+                    } 
+                    else
+                    {
+                        <b>当前用户：</b>
+                        @Model.Reader.Name
+                        @Html.ActionLink("用户注销", "Withdraw", "Reader")
+                    }
+                </li>
+                <li>
+                    @Html.ActionLink("用户注册", "Register", "Reader")
+                </li>
+                <li>
+                    @Html.ActionLink("管理员登录", "Login", "Account")
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

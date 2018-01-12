@@ -1,0 +1,8 @@
+﻿@model IEnumerable<SSLS.Domain.Concrete.Category>
+
+@foreach (var category in Model)
+{
+    @Html.RouteLink(category.Name,
+    new { controller = "Book", action = "list", categoryId = category.Id, page = 1 }
+    )
+}

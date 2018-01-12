@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SSLS.Domain.Concrete.Borrow>
+@{
+    ViewBag.Title = "Borrowing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+} 
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/sweet-alert.css" rel="stylesheet" />
+<script src="~/Scripts/sweet-alert.min.js"></script>
+
+<h2 class="title">读者<b>@ViewBag.Name</b>的未还书籍如下</h2>
+<p>温馨提示:对于未缴纳罚款的记录，不给予续借功能，且点击"归还"时默认从您的账户中扣除罚款</p>   
+<div>@ViewBag.AgainOver</div> 
+<div id="msg" hidden="hidden">@TempData["msg"]</div> 
+<table id="ShelfTable" class="table">
+    <thead>
+        <tr> 
+
+            <th>书名</th>
+            <th>借阅日期</th>
+            <th>应还日期</th> 
+            <th>罚款金额</th>
+            <th>续借次数</th>
+            <th></th> 
+        </tr>
+    </thead> 
+    <tbody>
+        @foreach (var line in Model)
+        {
+            <tr>
+                <td >@line.Book.Name</td>
+                <td >@line.BorrowTime</td>
+                <td >@line.DateShouldBeReturn</td> 
+                <td >@line.Fine.FinePrice</td>  
+                <td >@line.WhetherToRenew</td>  
+                <td> 
+                    @Html.ActionLink("归还", "ReturnBook", null,
+                new { Id = line.Book.Id },
+                new { @class = "btn btn-primary" })
+                </td>
+                @if(line.Fine.FinePrice==0)
+                {
+                <td>            
+                    @Html.ActionLink("续借", "BorrowAgain", null,
+                new { Id = line.Book.Id },
+                new { @class = "btn btn-primary again" })
+                    </td>
+                }
+            <td></td>
+            </tr> 
+        }
+
+    </tbody>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@ViewBag.ReturnUrl">继续借阅</a>
+</div>
+<script>
+    // 每当Index_book执行一次,$(function (){})里的内容就执行一次,以此检测是否该弹出提示语句
+    $(function () {
+        toastr.options = {
+            "timeOut": "1000", //展现时间
+        };
+        if ($('#msg').text() != "") {
+            toastr.warning($('#msg').text())
+        }
+    })
+</script>
+
+
+
+
+
+

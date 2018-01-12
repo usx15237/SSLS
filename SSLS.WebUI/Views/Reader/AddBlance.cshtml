@@ -1,0 +1,44 @@
+﻿@model SSLS.Domain.Concrete.Reader
+
+@{
+    ViewBag.Title = "AddBlance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <h2 class="title">余额充值</h2> 
+    <div style="margin-left:320px">
+        <p>您的当前账户余额为：<input type="text" name="price" value="@Model.Price" id="price" /></p>
+
+        <div style="margin-bottom:10px">我是土豪:<input type="button" class="btn .btn-warning" value="充￥100" id="rich" /></div>
+        <div style="margin-bottom:10px">精打细算:<input type="button" class="btn .btn-info" value="充￥50" id="soso" /></div>
+        <div style="margin-bottom:10px">家徒四壁:<input type="button" class="btn .btn-default" value="充￥10" id="poor" /></div>
+
+    </div>
+    <div style="text-align:center">
+        <input type="submit" class="btn btn-success" value="提交修改" />
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $("#rich").click(function () {
+            var old = $("#price").val() - 0;
+            old += 100;
+            $("#price").val(old);
+        });
+        $("#soso").click(function () {
+            var old = $("#price").val() - 0;
+            old += 50;
+            $("#price").val(old);
+        });
+        $("#poor").click(function () {
+            var old = $("#price").val() - 0;
+            old += 10;
+            $("#price").val(old);
+        });
+
+    });
+
+</script>
+

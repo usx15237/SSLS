@@ -1,0 +1,73 @@
+﻿@model SSLS.Domain.Concrete.AnalyzeModel
+@{
+    ViewBag.Title = "BorrowCount";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/scripts/sweet-alert.min.js"></script>
+<link href="~/Content/sweet-alert.css" rel="stylesheet" />
+<script src="~/scripts/echarts.min.js"></script>
+<div id="myChart" style="height:400px;z-index:100"></div>
+<script>
+
+    var x;
+    $.ajax({
+        type: "post",
+        async: false, //同步执行
+        url: "/Admin/FineCount1",
+
+        dataType: "json", //返回数据形式为json
+        success: function (result) {
+            x = result;
+        },
+        error: function (errorMsg) {
+            sweetAlert("对不起...", "图表请求数据失败啦!", "error");
+        }
+    })
+
+    var myChart = echarts.init(document.getElementById('myChart'));
+     
+     
+    myChart.setOption({
+        title: {
+            text: '已缴纳罚款统计表',
+            subtext: '将所有已缴清的罚款记录按读者分组',
+            x: 'center'
+        },
+        color: ['#3398DB'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: x.Fined.Names,
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '罚款项数',
+                type: 'bar',
+                barWidth: '60%',
+                data: x.Fined.Values
+            }
+        ]
+    });
+</script>

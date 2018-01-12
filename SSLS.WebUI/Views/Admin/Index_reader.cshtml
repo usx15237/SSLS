@@ -1,0 +1,105 @@
+﻿@model SSLS.WebUI.Models.ReadersandBorrrows
+
+@{
+    ViewBag.Title = "Index_reader";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .trdiv {
+        display: table-cell;
+        border-bottom: 1px black solid;
+        border-right: 1px black solid;
+        text-align: center;
+    }
+    #on{
+        margin-bottom:20px;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>读者列表</h3>
+        <h4>点击读者姓名可查看读者基本信息及借阅列表;</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-center">编号</th>
+                <th>名称</th>
+                <th>
+                <th>
+            </tr>
+            @foreach (var item in Model.yourRBs)
+            {
+                <tr>
+                    <td>@item.reader.Id </td>
+                    <!-- path为"/Admin/Edit";query为"Id=1"-->
+                    <td data-toggle="modal" data-target="#@item.reader.Id" class="name">@item.reader.Name</td>
+                    <td>
+                        @Html.ActionLink("借阅分析", "ReaderAnalyze", "Admin",
+     new { Id = item.reader.Id },
+     new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.yourRBs)
+            {
+                    <!-- Modal -->
+                <div class="modal" id="@item.reader.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">读者信息及借阅列表</h4>
+                            </div>
+                            <div class="modal-body">
+
+
+                                <div style="display:table;border:1px black solid;width:100%;" id="on">
+                                    <div style="display:table-row;">
+                                        <div class="trdiv">姓名</div>
+                                        <div class="trdiv">余额</div>
+                                        <div class="trdiv">密码</div>
+                                        <div class="trdiv">邮箱</div>
+                                    </div>
+                                    <div style="display:table-row;">
+                                        <div class="trdiv">@item.reader.Name</div>
+                                        <div class="trdiv">@item.reader.Price</div>
+                                        <div class="trdiv">@item.reader.Password</div>
+                                        <div class="trdiv">@item.reader.Email</div>
+                                    </div>
+
+                                </div>
+
+                                  
+                                <div style="display:table;border:1px black solid;width:100%;">
+                                    <div style="display:table-row;">
+                                        <div class="trdiv">借阅书籍</div>
+                                        <div class="trdiv">借阅时间</div>
+                                        <div class="trdiv">应还时间</div>
+                                    </div>
+                                    @foreach (var it in item.borrows)
+                                    {
+                                        <div style="display:table-row;">
+                                            <div class="trdiv">@it.Book.Name</div>
+                                            <div class="trdiv">@it.BorrowTime</div>
+                                            <div class="trdiv">@it.DateShouldBeReturn</div>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </table>
+        <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </div>
+</div>

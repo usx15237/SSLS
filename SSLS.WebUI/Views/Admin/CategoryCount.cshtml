@@ -1,0 +1,72 @@
+﻿@model SSLS.Domain.Concrete.AnalyzeModel
+@{
+    ViewBag.Title = "BorrowCount";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/scripts/sweet-alert.min.js"></script>
+<link href="~/Content/sweet-alert.css" rel="stylesheet" />
+<script src="~/scripts/echarts.min.js"></script>
+<div id="myChart" style="height:400px;z-index:100"></div>
+<script>
+
+    var x;
+    $.ajax({
+        type: "post",
+        async: false, //同步执行
+        url: "/Admin/CategoryCount1",
+
+        dataType: "json", //返回数据形式为json
+        success: function (result) {
+            x = result;
+        },
+        error: function (errorMsg) {
+            sweetAlert("对不起...", "图表请求数据失败啦!", "error");
+        }
+    })
+
+    var myChart = echarts.init(document.getElementById('myChart'));
+
+    myChart.setOption({
+        title: {
+            text: '图书统计表',
+            subtext: '将各类图书按类别分组',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x: 'center',
+            y: 'bottom',
+            data: x.Names
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: {
+                    show: true,
+                    type: ['pie', 'funnel']
+                },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        series: [
+            {
+                name: '面积模式',
+                type: 'pie',
+                radius: [30, 110],
+                center: ['50%', '50%'],
+                roseType: 'area',
+                data: x.AnalyzeItems
+            }
+        ]
+    });
+</script>
+
+

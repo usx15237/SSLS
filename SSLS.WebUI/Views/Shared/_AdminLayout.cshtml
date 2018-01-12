@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.intellisense.js"></script>
+    <script src="~/Scripts/jquery-validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!--导航-->
+    <link href="~/书架/templatemo_style.css" rel="stylesheet" />
+    <link href="~/书架/css/coda-slider.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+
+    <!--模态-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-modal.js"></script>
+
+
+    <!--toastr-->
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/toastr.js/2.1.0/js/toastr.js"></script>
+    <style>
+           .navigation a {
+            margin-left: 30px;
+        }
+             a:link, a:visited {
+            text-decoration: none; /*超链接无下划线*/
+        }
+
+        a:hover { 
+            text-decoration: underline; /*鼠标放上去有下划线*/
+        }
+    </style>
+</head>
+<body>
+
+        @Html.Action("adminNavSummary", "Admin")
+
+    <div class="row panel">
+        <div class="col-xs-8">
+            @RenderBody()
+        </div>
+    </div>
+    <footer>
+        <h2 style="text-align:center;font-size:25px;padding-top:10px;">15145237 朱汉卿 计算机151</h2>
+    </footer>
+</body>
+</html>
+

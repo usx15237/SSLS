@@ -1,0 +1,28 @@
+﻿@model SSLS.WebUI.Models.BooksListViewModel
+
+ 
+<div style="text-align:center">
+    @using (Html.BeginForm("List", "Book"))
+    {
+        <input type="text" name="search" placeholder="请输入图书信息" style="width:30%" id="find" />
+        <input type="submit" class="btn btn-success" value="搜索" />
+    } 
+</div>
+<ul class="cd-gallery">
+    @foreach (var p in Model.Books)
+    {
+        //注意传入参数为book类型
+        @Html.Action("BookSummary", p)
+    } 
+</ul>
+
+
+<div class="btn-group pull-right">
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        @Html.PageLinks(Model.pagingInfo, x => Url.Action("List", new { categoryId = Model.CurrentCategoryId, Page = x, }))
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+</div>
+
+

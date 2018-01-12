@@ -1,0 +1,53 @@
+﻿@model SSLS.Domain.Concrete.Book
+
+@{
+    ViewBag.Title = "SeeDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ <style>
+     .bookimage
+     {
+         width:200px;
+         height:200px;
+     }
+ </style>
+<h1 class="title">图书详情</h1>
+<table class="table table-striped table-condensed table-bordered">
+    <tr>
+        <th class="text-center">封面</th>
+        <th class="text-center">书名</th>
+        <th class="text-center">作者</th>
+        <th class="text-center">分类</th>
+        <th class="text-center">价格</th>
+        <th class="text-center">出版社</th>
+        <th class="text-center">操作</th>
+    </tr>
+        <tr>
+            <td class="text-center"> <img class="bookimage" src="@Model.ImageUrl" alt="@Model.Name"/></td>
+            <td class="text-center">@Model.Name</td>
+            <td class="text-center">@Model.AUthors</td>
+            <td class="text-center">@Model.Category.Name</td>
+            <td class="text-center">@Model.Price</td>
+            <td class="text-center">@Model.Press</td>
+            <td>
+            @if (ViewBag.statue == "可借")
+            {
+                using (Html.BeginForm("AddToShelf", "Shelf"))
+                {
+                    @Html.HiddenFor(x => x.Id)
+            <!--将当前URL设置为returnUrl-->
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" value="放入书架" class="btn btn-success addToShelf" id="put" />
+
+                }
+            }
+            </td>
+
+        </tr>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@ViewBag.ReturnUrl">继续借阅</a>
+</div>
+
+
+

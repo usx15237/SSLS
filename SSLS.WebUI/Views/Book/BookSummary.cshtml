@@ -1,0 +1,58 @@
+﻿@model SSLS.Domain.Concrete.Book
+
+
+<li>
+    <div class="cd-single-item">
+        <a href="#0">
+            <ul class="cd-slider-wrapper">
+                <li class="selected"><img id="bookimg" src="@Model.ImageUrl" alt="Preview image"></li>
+            </ul>
+        </a>
+
+
+
+        <div class="cd-customization">
+            @using (Html.BeginForm("SeeDetail", "Book"))
+            { 
+                @Html.HiddenFor(x => x.Id)
+            <!--将当前URL设置为returnUrl-->
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" value="查看详情" class="btn btn-success SeeDetail" id="see"  style="margin-left:14px;margin-bottom:60px;margin-right:20px"/>
+               
+            }
+            @if (ViewBag.statue == "可借")
+            {
+                using (Html.BeginForm("AddToShelf", "Shelf"))
+                {
+                    @Html.HiddenFor(x => x.Id)
+            <!--将当前URL设置为returnUrl-->
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" value="放入书架" class="btn btn-success addToShelf" id="put" />
+                   
+                }
+            }
+ 
+          
+        </div>
+
+
+
+            <div class="cd-item-info">
+                <b><a href="#0">@Model.Name</a></b>
+                <em class="rpeat">@ViewBag.statue</em>
+            </div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

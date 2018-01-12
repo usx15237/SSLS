@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SSLS.Domain.Concrete.Borrow>
+
+    @{
+        ViewBag.Title = "BorrowHistory";
+        Layout = "~/Views/Shared/_Layout.cshtml"; 
+    }
+
+    <h2 class="title">读者<b>@ViewBag.readerName</b>的借阅历史如下</h2>
+    <table class="table">
+        <thead>
+            <tr> 
+                <th>书名</th>
+                <th>借阅日期</th> 
+                <th>还书日期</th>
+                <th>逾期天数<th>  
+                <th></th>
+            </tr> 
+        </thead>
+        <tbody>
+            @foreach (var line in Model)
+            {
+                <tr>
+                    <td>@line.Book.Name</td>
+                    <td>@line.BorrowTime</td>
+                    <td>@line.ReturnTime</td>
+                    <td>@line.Overdays</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+
+

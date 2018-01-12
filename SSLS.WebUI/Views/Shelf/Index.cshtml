@@ -1,0 +1,67 @@
+﻿@model SSLS.WebUI.Models.CurrentReaderModel
+@{
+    ViewBag.Title = "MyLibrary: Your Shelf";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #ShelfTable td { 
+        vertical-align: middle;
+    }
+</style>
+<h2 class="title">我的书架</h2>
+<table id="ShelfTable" class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>书名</th>
+            <th>价格</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    @using (Html.BeginForm("Completed", "Shelf"))
+    {
+        foreach (var line in Model.Shelf.lines)
+        {
+            <tr>
+                <td><input type="checkbox" name="bookid" value="@line.Book.Id" class="checkbox" /></td>
+                <td>@line.Book.Name</td>
+                <td>@line.Book.Price</td>
+                <td>
+                    @Html.ActionLink("删除", "RemoveFromShelf", null,
+     new { Id = line.Book.Id },
+     new { @class = "btn btn-primary" })
+                </td> 
+            </tr>
+        }
+        @Html.HiddenFor(x => x.ReturnUrl)
+        <input type="submit" class="btn btn-success" value="提交书单" />
+    }
+    <tr>
+        <td><input type="button" name="全选" value="全选" id="selectAll"/></td>
+        <td><input type="button" name="反选" value="反选" id="reverseSelect"/></td>
+        <td><input type="button" name="全不选" value="全不选" id="unSelect"/></td>
+    </tr>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">继续借阅</a>
+</div>
+<script type="text/javascript">
+
+            $(function() {
+                $("#selectAll").click(function () {
+                    $(":checkbox").prop("checked", true);
+                });
+                $("#unSelect").click(function(){
+                    $(" :checkbox").prop("checked", false);
+                });
+                $("#reverseSelect").click(function(){
+                    $(":checkbox").each(function(){
+                        $(this).prop("checked", !$(this).prop("checked"));
+                    });
+                });
+
+
+
+            });
+</script>  
+

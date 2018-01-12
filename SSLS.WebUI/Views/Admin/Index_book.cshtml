@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SSLS.Domain.Concrete.Book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h3>图书列表</h3></div>
+    <div id="msg" hidden="hidden">@TempData["msg"]</div> 
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-right">编号</th>
+                <th>名称</th>
+                <th>分类</th>
+                <th class="text-right">价格</th>
+                <th class="text-right">出版社</th>
+                <th class="text-right"></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-right">@item.Id</td>
+                    <!-- path为"/Admin/Edit";query为"Id=1"-->
+                    <td>@Html.ActionLink(item.Name, "Edit_book", new { item.Id })</td>
+                    <td>@item.Category.Name</td>
+                    <td class="text-right">@item.Price</td>
+                    <td class="text-right">@item.Press</td>
+                    <td class="text-center">
+                        @using (Html.BeginForm("Delete_book", "Admin"))
+                        {
+                            @Html.Hidden("Id", item.Id)
+                            <input type="submit" class="btn btn-default del" value="删除">
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("新增", "Create_book", null, new { @class = "btn btn-default" })
+    </div>
+</div> 
+<script>
+    // 每当Index_book执行一次,$(function (){})里的内容就执行一次,以此检测是否该弹出提示语句
+    $(function () {
+        toastr.options = {
+            "timeOut": "1000", //展现时间
+        };
+        if ($('#msg').text() != "") {
+            toastr.success($('#msg').text())
+        }      
+    })
+</script>
+
+

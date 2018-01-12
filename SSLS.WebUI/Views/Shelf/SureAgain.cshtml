@@ -1,0 +1,12 @@
+﻿@model SSLS.Domain.Concrete.Book
+
+@{
+    ViewBag.Title = "SureAgain";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="title">您确认续借<b>@Model.Name</b>吗<p>
+    @Html.ActionLink("确认续借", "BorrowAgain", null,
+                new { Id = Model.Id },
+                new { @class = "btn btn-primary" })
+

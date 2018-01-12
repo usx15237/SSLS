@@ -1,0 +1,59 @@
+﻿@using SSLS.Domain.Concrete
+@model SSLS.WebUI.Models.CurrentReaderModel 
+
+
+<link rel="stylesheet" type="text/css" href="../../导航栏/css/nav.css">
+<link rel="stylesheet" type="text/css" href="../../导航栏/font/iconfont.css">
+
+<script type="text/javascript" src="../../导航栏/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../导航栏/js/nav.js"></script>
+<div class="nav col-xs-4">
+    <div class="nav-top">
+        <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="../../导航栏/images/mini.png"></div>
+    </div>
+
+    <ul>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>信息管理</span><i class="my-icon nav-more"></i></a>
+            <ul id="manage">
+                <li style="text-align:center">
+                    @Html.ActionLink("图书管理", "Index_book", "Admin")
+                </li>
+                <li style="text-align:center"> 
+                    @Html.ActionLink("类别管理", "Index_category", "Admin")
+                </li>
+                <li style="text-align:center">
+                    @Html.ActionLink("读者管理", "Index_reader", "Admin")
+                </li> 
+                <li style="text-align:center">
+                    @Html.ActionLink("退出登录", "List", "Book")
+                </li> 
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>图书统计</span><i class="my-icon nav-more"></i></a>
+            <ul id="manage">
+                <li style="text-align:center">
+                    @Html.ActionLink("类别统计", "CategoryCount", "Admin")
+                </li>
+                <li style="text-align:center">
+                    @Html.ActionLink("借阅统计", "BorrowCount", "Admin")
+                </li>         
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>罚款统计</span><i class="my-icon nav-more"></i></a>
+            <ul id="manage">
+                <li style="text-align:center">
+                    @Html.ActionLink("总表", "FineCount", "Admin")
+                </li>
+                <li style="text-align:center">
+                    @Html.ActionLink("未缴纳表", "ToFineCount", "Admin")
+                </li>
+                <li style="text-align:center">
+                    @Html.ActionLink("已缴纳表", "FinedCount", "Admin")
+                </li>
+            </ul>
+        </li>  
+    </ul>
+</div>
