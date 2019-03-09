@@ -1,2 +1,3 @@
 # SSLS
-simple SSLS with MVC frame
+简单的图书馆自助借阅系统,支持图书借阅,归还,读者数据统计等功能
+
